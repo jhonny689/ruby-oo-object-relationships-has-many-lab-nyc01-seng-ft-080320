@@ -3,15 +3,10 @@ class Author
     @@post_count = 0
     def initialize(name)
         self.name = name
-        @posts = []
     end
 
     def add_post(post)
-        @posts << post
-        @@post_count += 1
-        if !post.author
-            post.author = self
-        end
+        post.author = self
     end
 
     def add_post_by_title (title)
@@ -19,10 +14,12 @@ class Author
     end
 
     def posts
-        @posts
+        Post.all.filter do |post|
+            post.author == self
+        end
     end
 
     def self.post_count
-        @@post_count
+        Post.all.count
     end
 end

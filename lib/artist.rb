@@ -4,15 +4,11 @@ class Artist
     @@songs_count = 0
     def initialize(name)
         self.name = name
-        @songs = []
     end
     
     def add_song(song)
-        @songs << song
+        song.artist = self
         @@songs_count += 1
-        if song.artist != self
-            song.artist = self
-        end
     end
 
     def add_song_by_name (song_name)
@@ -20,8 +16,14 @@ class Artist
         add_song(new_song)
     end
 
+    def songs
+        Song.all.select do |song|
+            song.artist == self
+        end
+    end
+
     def self.song_count
-        @@songs_count
+        Song.all.count
     end
     
 end

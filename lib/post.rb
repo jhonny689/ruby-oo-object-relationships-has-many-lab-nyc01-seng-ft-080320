@@ -1,6 +1,6 @@
 class Post
-    attr_accessor :title
-    attr_reader :author
+    attr_accessor :title, :author
+    attr_reader 
 
     @@all = []
 
@@ -9,12 +9,6 @@ class Post
         @@all << self
     end
 
-    def author= (author)
-        @author = author
-        if !author.posts.include?(self)
-            author.add_post(self)
-        end
-    end
     def author_name
         self.author ? self.author.name : nil
     end
